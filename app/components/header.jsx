@@ -27,7 +27,7 @@ export default function Nav() {
                     className="sm:hidden"
                 />
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">ACME</p>
+                    <Link className="font-bold text-inherit dark:text-white" href="/">MovieLib</Link>
                 </NavbarBrand>
             </NavbarContent>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
