@@ -1,34 +1,21 @@
 'use client';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Input, Dropdown, DropdownMenu, DropdownTrigger, DropdownItem, Avatar } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useRouter } from "next/navigation";
-
-import ThemeSwitcher from "./theme_switcher";
 import { createClient } from "@/utils/supabase/client";
 
-export default function Nav() {
+import ThemeSwitcher from "./theme_switcher";
+
+export default function Nav({ user }) {
     const router = useRouter();
-    const [user, setUser] = useState(null);
-    // TODO: Add search functionality
-
     const supabase = createClient();
-    useEffect(() => {
-        async function getUser() {
-            const { data: { user } } = await supabase.auth.getUser()
-            setUser(user);
-        }
-
-        getUser();
-    }, []);
-
-    console.log({user});
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
         router.refresh();
-        setUser(null);
     }
+    console.log({ user });
 
     return (
         <Navbar maxWidth="full">
