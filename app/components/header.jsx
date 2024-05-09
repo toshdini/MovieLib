@@ -2,7 +2,7 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Input, Dropdown, DropdownMenu, DropdownTrigger, DropdownItem, Avatar } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import ThemeSwitcher from "./theme_switcher";
 import { createClient } from "@/utils/supabase/client";
@@ -15,12 +15,14 @@ export default function Nav() {
     const supabase = createClient();
     useEffect(() => {
         async function getUser() {
-            const { data, error} =  await supabase.auth.getSession();
-            setUser(data.user);
+            const { data: { user } } = await supabase.auth.getUser()
+            setUser(user);
         }
 
         getUser();
     }, []);
+
+    console.log({user});
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
